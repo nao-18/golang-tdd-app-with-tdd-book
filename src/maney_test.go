@@ -4,12 +4,10 @@ import "testing"
 
 func TestMultiplicationInEuros(t *testing.T) {
 	tenEuros := Money{amount: 10, currency: "EUR"}
-	twentyEuros := tenEuros.Times(2)
-	if twentyEuros.amount != 20 {
-		t.Errorf("Expected 20, got: [%d]", twentyEuros.amount)
-	}
-	if twentyEuros.currency != "EUR" {
-		t.Errorf("Expected EUR, got: [%s]", twentyEuros.currency)
+	actualResult := tenEuros.Times(2)
+	expectedResult := Money{amount: 20, currency: "EUR"}
+	if expectedResult != actualResult {
+		t.Errorf("Expected [%+v], got: [%+v]", expectedResult, actualResult)
 	}
 }
 
@@ -18,12 +16,10 @@ func TestMultiplicationInDollar(t *testing.T) {
 		amount:   5,
 		currency: "USD",
 	}
-	tenner := fiver.Times(2)
-	if tenner.amount != 10 {
-		t.Errorf("Expected 10, got: [%d]", tenner.amount)
-	}
-	if tenner.currency != "USD" {
-		t.Errorf("Expected USD, got: [%s]", tenner.currency)
+	actualResult := fiver.Times(2)
+	expectedResult := Money{amount: 10, currency: "USD"}
+	if expectedResult != actualResult {
+		t.Errorf("Expected [%+v], got: [%+v]", expectedResult, actualResult)
 	}
 }
 
