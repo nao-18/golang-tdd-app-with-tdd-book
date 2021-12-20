@@ -44,3 +44,7 @@ type Money struct {
 func (m Money) Times(multiplier int) Money {
 	return Money{amount: m.amount * multiplier, currency: m.currency}
 }
+
+func (m Money) Divide(divisor int) Money {
+	return Money{amount: m.amount / divisor, currency: m.currency}
+}
