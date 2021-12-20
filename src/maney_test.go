@@ -27,6 +27,15 @@ func TestMultiplicationInDollar(t *testing.T) {
 	}
 }
 
+func TestDivision(t *testing.T) {
+	originalMoney := Money{amount: 4002, currency: "KRW"}
+	actualMoneyAfterDivision := originalMoney.Divide(4)
+	expectedMoneyAfterDivision := Money{amount: 1000.5, currency: "KRW"}
+	if expectedMoneyAfterDivision != actualMoneyAfterDivision {
+		t.Errorf("Expected %+v Got %+v", expectedMoneyAfterDivision, actualMoneyAfterDivision)
+	}
+}
+
 type Money struct {
 	amount   int
 	currency string
