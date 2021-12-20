@@ -28,6 +28,6 @@ type Money struct {
 	currency string
 }
 
-func (d Dollar) Times(multiplier int) Dollar {
-	return Dollar{amount: d.amount * multiplier}
+func (m Money) Times(multiplier int) Money {
+	return Money{amount: m.amount * multiplier, currency: m.currency}
 }
