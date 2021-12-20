@@ -13,13 +13,17 @@ func TestMultiplicationInEuros(t *testing.T) {
 	}
 }
 
-func TestMultiplication(t *testing.T) {
-	fiver := Dollar{
-		amount: 5,
+func TestMultiplicationInDollar(t *testing.T) {
+	fiver := Money{
+		amount:   5,
+		currency: "USD",
 	}
 	tenner := fiver.Times(2)
 	if tenner.amount != 10 {
 		t.Errorf("Expected 10, got: [%d]", tenner.amount)
+	}
+	if tenner.currency != "USD" {
+		t.Errorf("Expected USD, got: [%s]", tenner.currency)
 	}
 }
 
