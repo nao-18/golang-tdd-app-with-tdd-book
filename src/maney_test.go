@@ -37,7 +37,7 @@ func TestDivision(t *testing.T) {
 }
 
 type Money struct {
-	amount   int
+	amount   float64
 	currency string
 }
 
