@@ -23,8 +23,9 @@ func TestMultiplication(t *testing.T) {
 	}
 }
 
-type Dollar struct {
-	amount int
+type Money struct {
+	amount   int
+	currency string
 }
 
 func (d Dollar) Times(multiplier int) Dollar {
