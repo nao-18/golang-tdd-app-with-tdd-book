@@ -67,5 +67,9 @@ func (p Portfolio) Add(money Money) Portfolio {
 }
 
 func (p Portfolio) Evaluate(currency string) Money {
-	return Money{amount: 15, currency: "USD"}
+	total := 0.0
+	for _, m := range p {
+		total = total + m.amount
+	}
+	return Money{amount: total, currency: currency}
 }
