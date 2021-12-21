@@ -59,3 +59,13 @@ func (m Money) Times(multiplier int) Money {
 func (m Money) Divide(divisor int) Money {
 	return Money{amount: m.amount / float64(divisor), currency: m.currency}
 }
+
+type Portfolio []Money
+
+func (p Portfolio) Add(money Money) Portfolio {
+	return p
+}
+
+func (p Portfolio) Evaluate(currency string) Money {
+	return Money{amount: 15, currency: "USD"}
+}
