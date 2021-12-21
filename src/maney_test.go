@@ -63,6 +63,7 @@ func (m Money) Divide(divisor int) Money {
 type Portfolio []Money
 
 func (p Portfolio) Add(money Money) Portfolio {
+	p = append(p, money)
 	return p
 }
 
