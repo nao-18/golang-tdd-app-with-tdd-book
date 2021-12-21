@@ -1,38 +1,42 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	s "github.com/nao-18/golang-tdd-app-with-tdd-book/stocks"
+)
 
 func TestMultiplicationInEuros(t *testing.T) {
-	tenEuros := Money{amount: 10, currency: "EUR"}
+	tenEuros := s.Money{amount: 10, currency: "EUR"}
 	actualResult := tenEuros.Times(2)
-	expectedResult := Money{amount: 20, currency: "EUR"}
+	expectedResult := s.Money{amount: 20, currency: "EUR"}
 	assertEqual(t, expectedResult, actualResult)
 }
 
 func TestMultiplicationInDollar(t *testing.T) {
-	fiver := Money{
+	fiver := s.Money{
 		amount:   5,
 		currency: "USD",
 	}
 	actualResult := fiver.Times(2)
-	expectedResult := Money{amount: 10, currency: "USD"}
+	expectedResult := s.Money{amount: 10, currency: "USD"}
 	assertEqual(t, expectedResult, actualResult)
 }
 
 func TestDivision(t *testing.T) {
-	originalMoney := Money{amount: 4002, currency: "KRW"}
+	originalMoney := s.Money{amount: 4002, currency: "KRW"}
 	actualMoneyAfterDivision := originalMoney.Divide(4)
-	expectedMoneyAfterDivision := Money{amount: 1000.5, currency: "KRW"}
+	expectedMoneyAfterDivision := s.Money{amount: 1000.5, currency: "KRW"}
 	assertEqual(t, expectedMoneyAfterDivision, actualMoneyAfterDivision)
 }
 
 func TestAddition(t *testing.T) {
-	var portfolio Portfolio
-	var portfolioInDollars Money
+	var portfolio s.Portfolio
+	var portfolioInDollars s.Money
 
-	fiveDollars := Money{amount: 5, currency: "USD"}
-	tenDollars := Money{amount: 10, currency: "USD"}
-	fifteenDollars := Money{amount: 15, currency: "USD"}
+	fiveDollars := s.Money{amount: 5, currency: "USD"}
+	tenDollars := s.Money{amount: 10, currency: "USD"}
+	fifteenDollars := s.Money{amount: 15, currency: "USD"}
 
 	portfolio = portfolio.Add(fiveDollars)
 	portfolio = portfolio.Add(tenDollars)
@@ -41,7 +45,7 @@ func TestAddition(t *testing.T) {
 	assertEqual(t, fifteenDollars, portfolioInDollars)
 }
 
-func assertEqual(t *testing.T, expected Money, actual Money) {
+func assertEqual(t *testing.T, expected s.Money, actual s.Money) {
 	if expected != actual {
 		t.Errorf("Expected %+v Got %+v", expected, actual)
 	}

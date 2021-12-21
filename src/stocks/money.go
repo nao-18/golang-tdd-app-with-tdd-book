@@ -1,4 +1,4 @@
-package main
+package stocks
 
 type Money struct {
 	amount   float64
