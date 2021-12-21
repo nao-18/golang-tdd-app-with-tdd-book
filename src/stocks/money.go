@@ -5,6 +5,10 @@ type Money struct {
 	currency string
 }
 
+func NewMoney(amount float64, currency string) Money {
+	return Money{amount, currency}
+}
+
 func (m Money) Times(multiplier int) Money {
 	return Money{amount: m.amount * float64(multiplier), currency: m.currency}
 }
