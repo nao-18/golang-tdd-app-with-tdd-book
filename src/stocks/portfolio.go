@@ -10,7 +10,14 @@ func (p Portfolio) Add(money Money) Portfolio {
 func (p Portfolio) Evaluate(currency string) Money {
 	total := 0.0
 	for _, m := range p {
-		total = total + m.amount
+		total = total + convert(m, currency)
 	}
 	return Money{amount: total, currency: currency}
+}
+
+func convert(money Money, currency string) float64 {
+	if money.currency == currency {
+		return money.amount
+	}
+	return money.amount * 1.2
 }
