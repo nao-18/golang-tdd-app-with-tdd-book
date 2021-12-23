@@ -76,15 +76,13 @@ func TestAdditionWithMultipleMissingExchangeRages(t *testing.T) {
 	portfolio = portfolio.Add(oneEuro)
 	portfolio = portfolio.Add(oneWon)
 
-	expectedErrorMessage := "Missing exhange rate(s):[USD->Kalgnid,EUR->Kalganid,KRW->Kalganid,]"
+	expectedErrorMessage := "Missing exchange rate(s):[USD->Kalganid,EUR->Kalganid,KRW->Kalganid,]"
 	_, actualError := portfolio.Evaluate("Kalganid")
 
-	if expectedErrorMessage != actualError.Error() {
-		t.Errorf("Expected %s Got %s", expectedErrorMessage, actualError.Error())
-	}
+	assertEqual(t, expectedErrorMessage, actualError.Error())
 }
 
-func assertEqual(t *testing.T, expected s.Money, actual s.Money) {
+func assertEqual(t *testing.T, expected interface{}, actual interface{}) {
 	if expected != actual {
 		t.Errorf("Expected %+v Got %+v", expected, actual)
 	}
