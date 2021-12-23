@@ -30,7 +30,7 @@ func TestAddition(t *testing.T) {
 
 	portfolio = portfolio.Add(fiveDollars)
 	portfolio = portfolio.Add(tenDollars)
-	portfolioInDollars = portfolio.Evaluate("USD")
+	portfolioInDollars, _ = portfolio.Evaluate("USD")
 
 	assertEqual(t, fifteenDollars, portfolioInDollars)
 }
@@ -45,7 +45,7 @@ func TestAdditionOfDollarsAndEuros(t *testing.T) {
 	portfolio = portfolio.Add(tenEuros)
 
 	expectedValue := s.NewMoney(17, "USD")
-	actualValue := portfolio.Evaluate("USD")
+	actualValue, _ := portfolio.Evaluate("USD")
 
 	assertEqual(t, expectedValue, actualValue)
 }
@@ -60,7 +60,7 @@ func TestAdditionOfDollarsAndWons(t *testing.T) {
 	portfolio = portfolio.Add(elevenHundredWon)
 
 	expectedValue := s.NewMoney(2200, "KRW")
-	actualValue := portfolio.Evaluate("KRW")
+	actualValue, _ := portfolio.Evaluate("KRW")
 
 	assertEqual(t, expectedValue, actualValue)
 }
@@ -71,6 +71,10 @@ func TestAdditionWithMultipleMissingExchangeRages(t *testing.T) {
 	oneDollar := s.NewMoney(1, "USD")
 	oneEuro := s.NewMoney(1, "EUR")
 	oneWon := s.NewMoney(1, "KRW")
+
+	portfolio = portfolio.Add(oneDollar)
+	portfolio = portfolio.Add(oneEuro)
+	portfolio = portfolio.Add(oneWon)
 
 	expectedErrorMessage := "Missing exhange rate(s):[USD->Kalgnid,EUR->Kalganid,KRW->Kalganid,]"
 	_, actualError := portfolio.Evaluate("Kalganid")
