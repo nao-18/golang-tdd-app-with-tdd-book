@@ -15,14 +15,15 @@ func (p Portfolio) Evaluate(currency string) Money {
 	return Money{amount: total, currency: currency}
 }
 
-func convert(money Money, currency string) float64 {
+func convert(money Money, currency string) (float64, bool) {
 	exchangeRates := map[string]float64{
 		"EUR->USD": 1.2,
 		"USD->KRW": 1100,
 	}
 	if money.currency == currency {
-		return money.amount
+		return money.amount, true
 	}
 	key := money.currency + "->" + currency
-	return money.amount * exchangeRates[key]
+	rate, ok := exchangeRates[key]
+	return money.amount * rate, ok
 }
