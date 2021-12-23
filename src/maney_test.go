@@ -65,6 +65,21 @@ func TestAdditionOfDollarsAndWons(t *testing.T) {
 	assertEqual(t, expectedValue, actualValue)
 }
 
+func TestAdditionWithMultipleMissingExchangeRages(t *testing.T) {
+	var portfolio s.Portfolio
+
+	oneDollar := s.NewMoney(1, "USD")
+	oneEuro := s.NewMoney(1, "EUR")
+	oneWon := s.NewMoney(1, "KRW")
+
+	expectedErrorMessage := "Missing exhange rate(s):[USD->Kalgnid,EUR->Kalganid,KRW->Kalganid,]"
+	_, actualError := portfolio.Evaluate("Kalganid")
+
+	if expectedErrorMessage != actualError.Error() {
+		t.Errorf("Expected %s Got %s", expectedErrorMessage, actualError.Error())
+	}
+}
+
 func assertEqual(t *testing.T, expected s.Money, actual s.Money) {
 	if expected != actual {
 		t.Errorf("Expected %+v Got %+v", expected, actual)
