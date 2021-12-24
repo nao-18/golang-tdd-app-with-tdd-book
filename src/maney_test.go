@@ -91,6 +91,16 @@ func TestConversion(t *testing.T) {
 	assertEqual(t, s.NewMoney(12, "USD"), actualConvertedMoney)
 }
 
+func TestConversionWithMissingExchangeRate(t *testing.T) {
+	bank := s.NewBank()
+	tenEuros := s.NewMoney(10, "EUR")
+	actualConvertedMoney, err := bank.Convert(tenEuros, "Kalganid")
+	if actualConvertedMoney != nil {
+		t.Errorf("Expected money to be nil, found: [%+v]", actualConvertedMoney)
+	}
+	assertEqual(t, "EUR->Kalganid", err.Error())
+}
+
 func assertNil(t *testing.T, err error) {
 	if err != nil {
 		t.Errorf("Expected error to be nil, found: [%s]", err)
