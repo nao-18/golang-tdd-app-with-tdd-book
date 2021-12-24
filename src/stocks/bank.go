@@ -23,7 +23,7 @@ func (b Bank) Convert(money Money, currencyTo string) (convertedMoney *Money, er
 		result = NewMoney(money.amount*rate, currencyTo)
 		return &result, nil
 	}
-	return nil, errors.New("Failed")
+	return nil, errors.New(key)
 }
 
 func NewBank() Bank {
