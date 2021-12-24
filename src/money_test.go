@@ -1,6 +1,7 @@
 package main
 
 import (
+	"reflect"
 	"testing"
 
 	s "github.com/nao-18/golang-tdd-app-with-tdd-book/stocks"
@@ -102,7 +103,7 @@ func TestConversionWithMissingExchangeRate(t *testing.T) {
 }
 
 func assertNil(t *testing.T, actual interface{}) {
-	if actual != nil {
+	if actual != nil && !reflect.ValueOf(actual).IsNil() {
 		t.Errorf("Expected error to be nil, found: [%s]", actual)
 	}
 }
