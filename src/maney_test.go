@@ -88,7 +88,7 @@ func TestConversion(t *testing.T) {
 	tenEuros := s.NewMoney(10, "EUR")
 	actualConvertedMoney, err := bank.Convert(tenEuros, "USD")
 	assertNil(t, err)
-	assertEqual(t, s.NewMoney(12, "USD"), actualConvertedMoney)
+	assertEqual(t, s.NewMoney(12, "USD"), *actualConvertedMoney)
 }
 
 func TestConversionWithMissingExchangeRate(t *testing.T) {
