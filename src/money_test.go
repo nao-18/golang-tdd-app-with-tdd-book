@@ -101,9 +101,9 @@ func TestConversionWithMissingExchangeRate(t *testing.T) {
 	assertEqual(t, "EUR->Kalganid", err.Error())
 }
 
-func assertNil(t *testing.T, err error) {
-	if err != nil {
-		t.Errorf("Expected error to be nil, found: [%s]", err)
+func assertNil(t *testing.T, actual interface{}) {
+	if actual != nil {
+		t.Errorf("Expected error to be nil, found: [%s]", actual)
 	}
 }
 
