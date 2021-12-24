@@ -7,6 +7,14 @@ import (
 	s "github.com/nao-18/golang-tdd-app-with-tdd-book/stocks"
 )
 
+var bank s.Bank
+
+func init() {
+	bank = s.NewBank()
+	bank.AddExchangeRate("EUR", "USD", 1.2)
+	bank.AddExchangeRate("USD", "KRW", 1100)
+}
+
 func TestMultiplication(t *testing.T) {
 	tenEuros := s.NewMoney(10, "EUR")
 	actualResult := tenEuros.Times(2)
@@ -23,7 +31,6 @@ func TestDivision(t *testing.T) {
 
 func TestAddition(t *testing.T) {
 	var portfolio s.Portfolio
-	var portfolioInDollars s.Money
 
 	fiveDollars := s.NewMoney(5, "USD")
 	tenDollars := s.NewMoney(10, "USD")
@@ -31,9 +38,10 @@ func TestAddition(t *testing.T) {
 
 	portfolio = portfolio.Add(fiveDollars)
 	portfolio = portfolio.Add(tenDollars)
-	portfolioInDollars, _ = portfolio.Evaluate("USD")
+	portfolioInDollars, err := portfolio.Evaluate(bank, "USD")
 
-	assertEqual(t, fifteenDollars, portfolioInDollars)
+	assertNil(t, err)
+	assertEqual(t, fifteenDollars, *portfolioInDollars)
 }
 
 func TestAdditionOfDollarsAndEuros(t *testing.T) {
@@ -46,9 +54,10 @@ func TestAdditionOfDollarsAndEuros(t *testing.T) {
 	portfolio = portfolio.Add(tenEuros)
 
 	expectedValue := s.NewMoney(17, "USD")
-	actualValue, _ := portfolio.Evaluate("USD")
+	actualValue, err := portfolio.Evaluate(bank, "USD")
 
-	assertEqual(t, expectedValue, actualValue)
+	assertEqual(t, expectedValue, *actualValue)
+	assertNil(t, err)
 }
 
 func TestAdditionOfDollarsAndWons(t *testing.T) {
@@ -61,9 +70,10 @@ func TestAdditionOfDollarsAndWons(t *testing.T) {
 	portfolio = portfolio.Add(elevenHundredWon)
 
 	expectedValue := s.NewMoney(2200, "KRW")
-	actualValue, _ := portfolio.Evaluate("KRW")
+	actualValue, err := portfolio.Evaluate(bank, "KRW")
 
-	assertEqual(t, expectedValue, actualValue)
+	assertEqual(t, expectedValue, *actualValue)
+	assertNil(t, err)
 }
 
 func TestAdditionWithMultipleMissingExchangeRages(t *testing.T) {
@@ -78,8 +88,9 @@ func TestAdditionWithMultipleMissingExchangeRages(t *testing.T) {
 	portfolio = portfolio.Add(oneWon)
 
 	expectedErrorMessage := "Missing exchange rate(s):[USD->Kalganid,EUR->Kalganid,KRW->Kalganid,]"
-	_, actualError := portfolio.Evaluate("Kalganid")
+	value, actualError := portfolio.Evaluate(bank, "Kalganid")
 
+	assertNil(t, value)
 	assertEqual(t, expectedErrorMessage, actualError.Error())
 }
 
