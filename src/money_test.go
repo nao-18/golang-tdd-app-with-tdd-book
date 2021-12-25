@@ -116,6 +116,13 @@ func TestConversionWithMissingExchangeRate(t *testing.T) {
 	assertEqual(t, "EUR->Kalganid", err.Error())
 }
 
+func TestWhatIsTheConversionRateFromEURToUSD(t *testing.T) {
+	tenEuros := s.NewMoney(10, "EUR")
+	actualConvertedMoney, err := bank.Convert(tenEuros, "USD")
+	assertNil(t, err)
+	assertEqual(t, s.NewMoney(12, "USD"), *actualConvertedMoney)
+}
+
 func assertNil(t *testing.T, actual interface{}) {
 	if actual != nil && !reflect.ValueOf(actual).IsNil() {
 		t.Errorf("Expected error to be nil, found: [%s]", actual)
